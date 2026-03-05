@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cronograma CPAD — PAD 102309/26</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,300&display=swap');
+
+  :root{
+    --verde:#1a3a2a; --verde-medio:#2d5c40; --verde-claro:#3d7a56;
+    --ouro:#c9a84c; --ouro-claro:#e8c96a; --creme:#f5f0e8;
+    --cinza-escuro:#2a2a2a; --cinza:#5a5a5a; --cinza-leve:#f0ebe0;
+    --vermelho:#8b2020; --azul:#1a3a5c; --azul-claro:#2a5a8c;
+    --branco:#ffffff; --sombra:0 4px 20px rgba(0,0,0,0.14);
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Source Serif 4',serif;background:var(--creme);color:var(--cinza-escuro);min-height:100vh;}
+
+  /* ── HEADER ── */
+  .hdr{background:var(--verde);padding:22px 36px;display:flex;align-items:flex-start;justify-content:space-between;gap:18px;border-bottom:4px solid var(--ouro);}
+  .hdr-title{font-family:'Oswald',sans-serif;color:var(--ouro);font-size:19px;font-weight:700;letter-spacing:2px;text-transform:uppercase;line-height:1.2;}
+  .hdr-sub{color:rgba(255,255,255,0.68);font-size:12px;margin-top:5px;letter-spacing:0.3px;line-height:1.6;}
+  .hdr-card{background:rgba(201,168,76,0.13);border:1px solid var(--ouro);border-radius:6px;padding:9px 15px;text-align:right;flex-shrink:0;}
+  .hdr-card span{display:block;font-family:'Oswald',sans-serif;color:var(--ouro-claro);font-size:9.5px;letter-spacing:1px;text-transform:uppercase;}
+  .hdr-card strong{color:var(--branco);font-size:13px;font-family:'Oswald',sans-serif;}
+  .brasao{width:56px;height:56px;background:var(--ouro);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;box-shadow:0 0 0 3px var(--verde-medio),0 0 0 5px var(--ouro);}
+
+  /* ── TABS PRINCIPAIS ── */
+  .tabs-nav{background:var(--verde);display:flex;padding:0 36px;gap:2px;border-bottom:3px solid var(--ouro);}
+  .tab-btn{background:transparent;border:none;border-bottom:3px solid transparent;margin-bottom:-3px;color:rgba(255,255,255,0.48);font-family:'Oswald',sans-serif;font-size:11.5px;letter-spacing:1.5px;text-transform:uppercase;padding:12px 18px;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:7px;}
+  .tab-btn:hover{color:rgba(255,255,255,0.8);}
+  .tab-btn.active{color:var(--ouro);border-bottom-color:var(--ouro);}
+  .tbadge{background:var(--ouro);color:var(--verde);font-size:9px;font-weight:700;border-radius:10px;padding:1px 6px;min-width:17px;text-align:center;}
+  .tc{display:none;} .tc.active{display:block;}
+
+  /* ── PAINEL GLOBAL ── */
+  .cfg{background:var(--verde-medio);padding:16px 36px;display:flex;align-items:center;gap:24px;flex-wrap:wrap;border-bottom:2px solid var(--verde);}
+  .cfg label{font-family:'Oswald',sans-serif;color:var(--ouro-claro);font-size:10.5px;letter-spacing:1.5px;text-transform:uppercase;display:block;margin-bottom:5px;}
+  .cfg input[type="date"]{background:var(--verde);border:1.5px solid var(--ouro);border-radius:4px;color:var(--branco);padding:6px 10px;font-family:'Oswald',sans-serif;font-size:13.5px;letter-spacing:1px;cursor:pointer;outline:none;transition:border-color .2s;}
+  .cfg input[type="date"]:focus{border-color:var(--ouro-claro);}
+  .bp{background:var(--verde);border:1px solid var(--ouro);border-radius:20px;padding:6px 15px;color:var(--ouro-claro);font-family:'Oswald',sans-serif;font-size:11.5px;letter-spacing:1px;}
+  .bp strong{color:var(--branco);font-size:16px;}
+  .btn-lp{background:transparent;border:1.5px solid var(--ouro);color:var(--ouro-claro);font-family:'Oswald',sans-serif;font-size:10.5px;letter-spacing:1.5px;text-transform:uppercase;padding:6px 14px;border-radius:4px;cursor:pointer;transition:all .2s;margin-left:auto;}
+  .btn-lp:hover{background:var(--ouro);color:var(--verde);}
+
+  /* ── LEGENDA ── */
+  .leg{background:var(--cinza-leve);border-bottom:1px solid #ddd;padding:8px 36px;display:flex;gap:18px;flex-wrap:wrap;align-items:center;}
+  .leg span{font-size:11px;color:var(--cinza);display:flex;align-items:center;gap:4px;font-family:'Oswald',sans-serif;letter-spacing:.5px;}
+  .dot{width:10px;height:10px;border-radius:50%;display:inline-block;flex-shrink:0;}
+  .dp{background:#e8c96a;} .dc{background:#3d7a56;} .da{background:#8b2020;} .dl{background:#c97a20;}
+
+  /* ── CONTADORES ── */
+  .cw{padding:18px 36px 14px;display:flex;gap:12px;flex-wrap:wrap;}
+  .cc{background:var(--branco);border:1px solid #e0d8cc;border-radius:8px;padding:11px 16px;box-shadow:0 2px 8px rgba(0,0,0,.05);min-width:138px;}
+  .cc .v{font-family:'Oswald',sans-serif;font-size:28px;font-weight:700;color:var(--verde);line-height:1;}
+  .cc .v.urg{color:var(--vermelho);} .cc .v.al{color:#c97a20;}
+  .cc .r{font-size:9.5px;color:var(--cinza);font-family:'Oswald',sans-serif;letter-spacing:1px;text-transform:uppercase;margin-top:2px;}
+
+  /* ── PROGRESSO ── */
+  .ps{padding:0 36px 18px;}
+  .pbw{background:#e0d8cc;border-radius:20px;height:8px;overflow:hidden;margin-top:6px;}
+  .pbf{height:100%;border-radius:20px;background:linear-gradient(90deg,var(--verde-claro),var(--ouro));transition:width .4s ease;}
+  .pl{display:flex;justify-content:space-between;font-size:10.5px;font-family:'Oswald',sans-serif;color:var(--cinza);margin-top:3px;letter-spacing:.4px;}
+
+  /* ── AVISO ── */
+  .av{margin:0 36px 18px;background:#fff8ec;border:1.5px solid var(--ouro);border-left:5px solid var(--ouro);border-radius:6px;padding:11px 15px;font-size:12px;color:#5a4010;line-height:1.65;}
+  .av strong{font-family:'Oswald',sans-serif;}
+
+  /* ── WRAPPER ── */
+  .wr{padding:20px 36px 50px;}
+
+  /* ── TABELA ── */
+  table{width:100%;border-collapse:collapse;background:var(--branco);border-radius:8px;overflow:hidden;box-shadow:var(--sombra);}
+  thead tr{background:var(--verde);}
+  thead th{font-family:'Oswald',sans-serif;color:var(--ouro);font-size:9.5px;letter-spacing:1.8px;text-transform:uppercase;padding:12px 10px;text-align:left;border-bottom:2px solid var(--ouro);white-space:nowrap;}
+  tbody tr{border-bottom:1px solid #e8e0d0;transition:background .12s;}
+  tbody tr:last-child{border-bottom:none;}
+  tbody tr:hover{background:#faf7f0;}
+  .fh td{background:var(--verde-medio)!important;padding:7px 12px;font-family:'Oswald',sans-serif;color:var(--ouro-claro);font-size:9.5px;letter-spacing:2.5px;text-transform:uppercase;border-left:4px solid var(--ouro);}
+  td{padding:10px 10px;vertical-align:middle;font-size:12.5px;}
+
+  /* colunas */
+  .cn{width:34px;text-align:center;font-family:'Oswald',sans-serif;font-size:16px;color:var(--verde-claro);font-weight:600;}
+  .ca{font-weight:600;color:var(--cinza-escuro);line-height:1.35;}
+  .ca small{display:block;font-weight:300;font-size:10.5px;color:var(--cinza);font-style:italic;margin-top:2px;}
+  .cp{width:130px;font-size:10.5px;color:var(--cinza);line-height:1.5;}
+  .cp strong{display:block;font-family:'Oswald',sans-serif;font-size:13px;color:var(--verde);letter-spacing:.4px;}
+
+  /* coluna INÍCIO (nova) */
+  .ci{width:148px;text-align:center;}
+  .inicio-wrap{display:flex;flex-direction:column;gap:3px;align-items:center;}
+  .inicio-label{font-family:'Oswald',sans-serif;font-size:9px;letter-spacing:1px;text-transform:uppercase;color:var(--cinza);}
+  input.data-inicio{
+    background:#f5f0e8;
+    border:1.5px dashed #c9b87a;
+    border-radius:4px;padding:5px 5px;
+    font-family:'Oswald',sans-serif;font-size:12px;
+    color:#5a3a0a;width:122px;text-align:center;
+    cursor:pointer;outline:none;transition:all .2s;
+  }
+  input.data-inicio:focus{border-color:#c9a84c;border-style:solid;background:#fffbf0;}
+  input.data-inicio.filled{border-color:#c9a84c;border-style:solid;background:#fffbf0;color:#3a2000;}
+  .inicio-source{font-size:9px;color:#a08040;font-style:italic;margin-top:1px;}
+
+  /* coluna PRAZO-LIMITE */
+  .cd{width:122px;text-align:center;}
+  .dc-tag{font-family:'Oswald',sans-serif;font-size:12.5px;padding:4px 7px;border-radius:4px;display:inline-block;min-width:96px;text-align:center;}
+  .dc-tag.p{background:#fef9ec;color:#8b6a1a;border:1px solid #e8c96a;}
+  .dc-tag.c{background:#ecf7f0;color:#1a5c33;border:1px solid #3d7a56;}
+  .dc-tag.a{background:#fdecea;color:#8b2020;border:1px solid #c44;}
+  .dc-tag.l{background:#fef3e8;color:#7a4010;border:1px solid #c97a20;}
+  .dc-tag.n{color:#bbb;font-size:10.5px;font-family:'Source Serif 4',serif;font-style:italic;}
+
+  /* coluna CUMPRIMENTO */
+  .ck{width:130px;text-align:center;}
+  .cum-wrap{display:flex;flex-direction:column;gap:3px;align-items:center;}
+  .cum-label{font-family:'Oswald',sans-serif;font-size:9px;letter-spacing:1px;text-transform:uppercase;color:var(--cinza);}
+  input.data-cum{
+    background:#f8f5ee;border:1.5px dashed #bbb;border-radius:4px;
+    padding:5px 5px;font-family:'Oswald',sans-serif;font-size:12px;
+    color:var(--cinza-escuro);width:122px;text-align:center;cursor:pointer;outline:none;transition:all .2s;
+  }
+  input.data-cum:focus{border-color:var(--verde-claro);border-style:solid;background:#fff;}
+  input.data-cum.filled{border-color:var(--verde-claro);border-style:solid;background:#ecf7f0;}
+
+  /* coluna DOCS */
+  .cdo{width:98px;text-align:center;}
+  .btn-anx{background:transparent;border:1.5px dashed #aaa;border-radius:5px;color:var(--cinza);font-family:'Oswald',sans-serif;font-size:9.5px;letter-spacing:1px;text-transform:uppercase;padding:5px 8px;cursor:pointer;transition:all .2s;display:inline-flex;align-items:center;gap:4px;}
+  .btn-anx:hover{border-color:var(--azul-claro);color:var(--azul-claro);background:#f0f5fc;}
+  .btn-anx.has{border-color:var(--azul-claro);border-style:solid;color:var(--azul-claro);background:#f0f5fc;}
+  .dc2{background:var(--azul-claro);color:#fff;border-radius:9px;font-size:9px;padding:1px 5px;font-weight:700;}
+
+  /* coluna STATUS */
+  .cs{width:86px;text-align:center;}
+  .pill{display:inline-block;border-radius:20px;padding:3px 9px;font-family:'Oswald',sans-serif;font-size:9.5px;letter-spacing:1px;text-transform:uppercase;}
+  .pp{background:#fef9ec;color:#8b6a1a;border:1px solid #e8c96a;}
+  .pc{background:#ecf7f0;color:#1a5c33;border:1px solid #3d7a56;}
+  .pa{background:#fdecea;color:#8b2020;border:1px solid #c44;}
+  .pal{background:#fef3e8;color:#7a4010;border:1px solid #c97a20;}
+
+  /* ── MODAL ── */
+  .mov{display:none;position:fixed;inset:0;background:rgba(10,25,15,.74);z-index:1000;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(3px);}
+  .mov.open{display:flex;}
+  .mod{background:var(--branco);border-radius:10px;width:100%;max-width:700px;max-height:90vh;display:flex;flex-direction:column;box-shadow:0 20px 60px rgba(0,0,0,.4);overflow:hidden;}
+  .mhdr{background:var(--verde);padding:15px 20px;display:flex;align-items:flex-start;gap:10px;border-bottom:3px solid var(--ouro);}
+  .mtit{font-family:'Oswald',sans-serif;color:var(--ouro);font-size:14px;letter-spacing:1px;text-transform:uppercase;line-height:1.2;}
+  .msub{color:rgba(255,255,255,.58);font-size:11px;margin-top:3px;font-style:italic;}
+  .mcl{background:transparent;border:1px solid rgba(255,255,255,.3);color:rgba(255,255,255,.7);font-size:16px;width:28px;height:28px;border-radius:4px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0;margin-left:auto;}
+  .mcl:hover{background:rgba(255,255,255,.15);color:#fff;}
+  .mbody{overflow-y:auto;padding:18px;flex:1;}
+  .mtabs{display:flex;border-bottom:2px solid #e0d8cc;margin-bottom:16px;}
+  .mtab{background:none;border:none;border-bottom:3px solid transparent;margin-bottom:-2px;font-family:'Oswald',sans-serif;font-size:10.5px;letter-spacing:1.5px;text-transform:uppercase;color:var(--cinza);padding:8px 15px;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:5px;}
+  .mtab:hover{color:var(--verde-claro);}
+  .mtab.active{color:var(--verde);border-bottom-color:var(--verde);}
+  .mtc{display:none;} .mtc.active{display:block;}
+  .dz{border:2px dashed #c0b89a;border-radius:7px;padding:26px;text-align:center;background:#faf7f0;cursor:pointer;transition:all .2s;margin-bottom:14px;}
+  .dz:hover,.dz.over{border-color:var(--azul-claro);background:#f0f5fc;}
+  .dz input{display:none;}
+  .dz-ico{font-size:32px;margin-bottom:7px;}
+  .dz-t{font-family:'Oswald',sans-serif;font-size:14px;color:var(--cinza-escuro);}
+  .dz-s{font-size:11px;color:var(--cinza);margin-top:4px;}
+  .dz-btn{display:inline-block;margin-top:11px;background:var(--azul-claro);color:#fff;font-family:'Oswald',sans-serif;font-size:10.5px;letter-spacing:1.5px;text-transform:uppercase;padding:6px 16px;border-radius:4px;cursor:pointer;}
+  .dz-btn:hover{background:var(--azul);}
+  .fl{font-family:'Oswald',sans-serif;font-size:10.5px;letter-spacing:1px;text-transform:uppercase;color:var(--cinza);display:block;margin-bottom:6px;}
+  .fsel{border:1.5px solid #ddd;border-radius:5px;padding:7px 11px;font-family:'Oswald',sans-serif;font-size:11.5px;color:var(--cinza-escuro);background:#fff;width:100%;outline:none;cursor:pointer;margin-bottom:13px;}
+  .fta{width:100%;border:1.5px solid #ddd;border-radius:5px;padding:8px 11px;font-family:'Source Serif 4',serif;font-size:11.5px;outline:none;resize:vertical;min-height:60px;transition:border-color .2s;margin-bottom:13px;}
+  .fta:focus{border-color:var(--azul-claro);}
+  .bconf{background:var(--azul-claro);border:none;border-radius:5px;color:#fff;font-family:'Oswald',sans-serif;font-size:11.5px;letter-spacing:1.5px;text-transform:uppercase;padding:9px 18px;cursor:pointer;width:100%;transition:background .2s;}
+  .bconf:hover{background:var(--azul);}
+  .dl{display:flex;flex-direction:column;gap:8px;}
+  .di{background:#f8f5ee;border:1px solid #e0d8cc;border-radius:5px;padding:10px 12px;display:flex;align-items:flex-start;gap:10px;}
+  .di:hover{border-color:#bbb;}
+  .di-ico{font-size:20px;flex-shrink:0;margin-top:2px;}
+  .di-info{flex:1;min-width:0;}
+  .di-nm{font-weight:600;font-size:12.5px;word-break:break-word;}
+  .di-mt{font-size:10px;color:var(--cinza);margin-top:2px;display:flex;gap:10px;flex-wrap:wrap;}
+  .di-obs{width:100%;margin-top:6px;border:1px dashed #ccc;border-radius:3px;padding:4px 8px;font-family:'Source Serif 4',serif;font-size:11px;outline:none;resize:none;background:#fff;min-height:32px;transition:border-color .2s;}
+  .di-obs:focus{border-color:var(--azul-claro);border-style:solid;}
+  .sci{border:1px solid #ddd;border-radius:3px;padding:3px 6px;font-family:'Oswald',sans-serif;font-size:9.5px;color:var(--cinza-escuro);background:#fff;cursor:pointer;outline:none;max-width:130px;flex-shrink:0;}
+  .dbt{background:transparent;border:1px solid #ddd;border-radius:3px;font-size:12px;width:26px;height:26px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s;color:var(--cinza);flex-shrink:0;}
+  .dbt:hover{background:#fff;border-color:#bbb;}
+  .dbt.del:hover{background:#fdecea;border-color:#c44;color:#8b2020;}
+  .emp{text-align:center;padding:28px;color:var(--cinza);font-style:italic;font-size:12.5px;}
+  .emp-i{font-size:34px;margin-bottom:7px;}
+  .pv-item{display:flex;align-items:center;gap:8px;background:#f8f5ee;border:1px solid #e0d8cc;border-radius:4px;padding:8px 10px;margin-bottom:6px;}
+  .pv-info{flex:1;min-width:0;}
+  .pv-nm{font-weight:600;font-size:11.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .pv-sz{font-size:10px;color:var(--cinza);}
+  .btn-rmpv{background:none;border:none;color:#c44;cursor:pointer;font-size:14px;padding:2px 4px;}
+
+  /* ── ACERVO ── */
+  .acw{padding:24px 36px 50px;}
+  .ast{display:flex;gap:12px;margin-bottom:18px;flex-wrap:wrap;}
+  .asc{background:var(--branco);border:1px solid #e0d8cc;border-radius:7px;padding:10px 15px;min-width:110px;box-shadow:0 2px 6px rgba(0,0,0,.04);}
+  .asc .n{font-family:'Oswald',sans-serif;font-size:24px;color:var(--verde);font-weight:700;line-height:1;}
+  .asc .l{font-size:9.5px;color:var(--cinza);font-family:'Oswald',sans-serif;letter-spacing:1px;text-transform:uppercase;margin-top:2px;}
+  .afilt{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;align-items:center;}
+  .fb2{background:var(--branco);border:1.5px solid #ddd;border-radius:20px;font-family:'Oswald',sans-serif;font-size:9.5px;letter-spacing:1px;text-transform:uppercase;padding:4px 12px;cursor:pointer;color:var(--cinza);transition:all .2s;}
+  .fb2:hover,.fb2.active{background:var(--verde);color:var(--ouro-claro);border-color:var(--verde);}
+  .sbusca{background:var(--branco);border:1.5px solid #ddd;border-radius:20px;padding:5px 13px;font-family:'Source Serif 4',serif;font-size:11.5px;color:var(--cinza-escuro);outline:none;min-width:180px;transition:border-color .2s;margin-left:auto;}
+  .sbusca:focus{border-color:var(--verde-claro);}
+  .asec{background:var(--branco);border-radius:7px;box-shadow:var(--sombra);margin-bottom:20px;overflow:hidden;}
+  .ashdr{padding:12px 16px;display:flex;align-items:center;justify-content:space-between;gap:10px;cursor:pointer;user-select:none;}
+  .ashdr.portaria{background:#fef9ec;border-left:5px solid var(--ouro);}
+  .ashdr.comissao{background:#e8f5ec;border-left:5px solid #3d7a56;}
+  .ashdr.acusado {background:#fdecea;border-left:5px solid #c44;}
+  .ashdr.defesa  {background:#e8eef8;border-left:5px solid #3a6aac;}
+  .ashdr.judicial{background:#f3e8f8;border-left:5px solid #a460cc;}
+  .ashdr.outros  {background:#f0f0f0;border-left:5px solid #bbb;}
+  .ast2{font-family:'Oswald',sans-serif;font-size:12.5px;letter-spacing:1.5px;text-transform:uppercase;display:flex;align-items:center;gap:8px;}
+  .acnt{font-size:10.5px;font-weight:400;color:var(--cinza);letter-spacing:0;}
+  .atog{font-size:13px;color:var(--cinza);transition:transform .2s;}
+  .atog.open{transform:rotate(90deg);}
+  .abody{display:none;padding:0 16px 12px;}
+  .abody.open{display:block;}
+  .atable{width:100%;border-collapse:collapse;margin-top:9px;font-size:11.5px;}
+  .atable th{font-family:'Oswald',sans-serif;font-size:8.5px;letter-spacing:1.5px;text-transform:uppercase;color:var(--cinza);padding:6px 8px;text-align:left;border-bottom:1px solid #e0d8cc;}
+  .atable td{padding:8px 8px;border-bottom:1px solid #f0ebe0;vertical-align:middle;}
+  .atable tr:last-child td{border-bottom:none;}
+  .atable tr:hover td{background:#faf7f0;}
+  .aab{margin-top:10px;background:transparent;border:1.5px dashed #bbb;border-radius:5px;color:var(--cinza);font-family:'Oswald',sans-serif;font-size:9.5px;letter-spacing:1.5px;text-transform:uppercase;padding:7px 14px;cursor:pointer;transition:all .2s;display:inline-flex;align-items:center;gap:5px;}
+  .aab:hover{border-color:var(--verde-claro);color:var(--verde-claro);background:#f0faf5;border-style:solid;}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="hdr">
+  <div style="flex:1">
+    <div class="hdr-title">Cronograma CPAD — Controle de Prazos e Documentos</div>
+    <div class="hdr-sub">
+      Portaria nº 102309/26 — PAD/CPM &nbsp;·&nbsp; Acusado: <strong style="color:rgba(255,255,255,.85)">Sd PM Frencisney Siqueira dos Reis — Nº 170.577-1 — 37º BPM</strong><br>
+      Art. 13 I e III c/c Art. 64 II CEDM &nbsp;·&nbsp; Ref. MAPPA Art. 337–341 &nbsp;·&nbsp; Portaria assinada 02/03/2026
+    </div>
+  </div>
+  <div class="hdr-card">
+    <span>Presidente CPAD</span><strong>Cap PM Hector Bispo de Assumpção</strong>
+    <span style="margin-top:4px">Vogal / Relator</span><strong>2º Ten PM Luciano Thomé de Souza</strong>
+    <span style="margin-top:4px">Escrivão</span><strong>2º Sgt Geneide Morais da Silva</strong>
+  </div>
+  <div class="brasao">⚖️</div>
+</div>
+
+<!-- NAVEGAÇÃO -->
+<div class="tabs-nav">
+  <button class="tab-btn active" onclick="tabAba('cron',this)">📅 Cronograma de Prazos</button>
+  <button class="tab-btn" onclick="tabAba('acervo',this)">🗂️ Acervo Documental <span class="tbadge" id="badgeTotal">0</span></button>
+</div>
+
+<!-- ═══════════════════ ABA CRONOGRAMA ═══════════════════ -->
+<div id="tab-cron" class="tc active">
+
+  <!-- Painel global -->
+  <div class="cfg">
+    <div>
+      <label>📥 Recebimento da Portaria (base global)</label>
+      <input type="date" id="gReceb" title="Data global de recebimento — usada como base para atos da Fase 0">
+    </div>
+    <div>
+      <label>🏛️ Data da Reunião de Instalação (base global)</label>
+      <input type="date" id="gInstal" title="Data global de instalação — usada como base para atos das Fases 1–4">
+    </div>
+    <div class="bp">Prazo base: <strong>40 dias corridos</strong> (prorrogável +20)</div>
+    <button class="btn-lp" onclick="limparTudo()">↺ Limpar Tudo</button>
+  </div>
+
+  <!-- Legenda -->
+  <div class="leg">
+    <span><span class="dot dp"></span>Pendente</span>
+    <span><span class="dot dc"></span>Cumprido</span>
+    <span><span class="dot da"></span>Atrasado</span>
+    <span><span class="dot dl"></span>Atenção ≤3 dias</span>
+    <span style="margin-left:auto;font-size:10px;color:#aaa">✏️ Datas de início editáveis por ato &nbsp;·&nbsp; Prazo-limite recalculado automaticamente &nbsp;·&nbsp; Dias corridos exceto "úteis"</span>
+  </div>
+
+  <!-- Contadores -->
+  <div class="cw">
+    <div class="cc"><div class="v" id="cDec">—</div><div class="r">Dias decorridos</div></div>
+    <div class="cc"><div class="v" id="cRest">—</div><div class="r">Dias restantes</div></div>
+    <div class="cc"><div class="v" id="cFinal">—</div><div class="r">Prazo final (40d)</div></div>
+    <div class="cc"><div class="v" id="cCum">0</div><div class="r">Atos cumpridos</div></div>
+    <div class="cc"><div class="v" id="cPend">—</div><div class="r">Atos pendentes</div></div>
+  </div>
+
+  <!-- Progresso -->
+  <div class="ps">
+    <div class="pl"><span id="pLabel">Progresso: 0%</span><span id="pTempo"></span></div>
+    <div class="pbw"><div class="pbf" id="pBar" style="width:0%"></div></div>
+  </div>
+
+  <!-- Aviso -->
+  <div class="av">
+    <strong>⚠ SOBRESTAMENTO:</strong> Item 2.3 da Portaria 102309/26 e art. 337 §1º MAPPA — suspensão processual
+    <u>somente</u> por <strong>decisão judicial</strong> ou <strong>determinação da Autoridade Convocante</strong>. A CPAD não suspende por iniciativa própria.
+  </div>
+
+  <!-- Tabela -->
+  <div class="wr">
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Ato / Obrigação</th>
+          <th>Prazo Regulamentar</th>
+          <th style="min-width:140px">Início do Prazo <span style="font-weight:300;letter-spacing:0;font-size:8.5px;text-transform:none">(editável por ato)</span></th>
+          <th style="min-width:114px">Prazo-Limite <span style="font-weight:300;letter-spacing:0;font-size:8.5px;text-transform:none">(calculado)</span></th>
+          <th style="min-width:130px">Data Cumprimento <span style="font-weight:300;letter-spacing:0;font-size:8.5px;text-transform:none">(editável)</span></th>
+          <th>Docs</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody id="tbody"></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ═══════════════════ ABA ACERVO ═══════════════════ -->
+<div id="tab-acervo" class="tc">
+  <div class="acw">
+    <div class="ast">
+      <div class="asc"><div class="n" id="stTotal">0</div><div class="l">Total</div></div>
+      <div class="asc"><div class="n" id="stPortaria">0</div><div class="l">Portarias</div></div>
+      <div class="asc"><div class="n" id="stComissao">0</div><div class="l">Comissão</div></div>
+      <div class="asc"><div class="n" id="stAcusado">0</div><div class="l">Acusado</div></div>
+      <div class="asc"><div class="n" id="stDefesa">0</div><div class="l">Defesa</div></div>
+      <div class="asc"><div class="n" id="stJudicial">0</div><div class="l">Judicial</div></div>
+      <div class="asc"><div class="n" id="stOutros">0</div><div class="l">Outros</div></div>
+    </div>
+    <div class="afilt">
+      <button class="fb2 active" onclick="filtAcervo('todos',this)">Todos</button>
+      <button class="fb2" onclick="filtAcervo('portaria',this)">🏛️ Portarias</button>
+      <button class="fb2" onclick="filtAcervo('comissao',this)">⚖️ Comissão</button>
+      <button class="fb2" onclick="filtAcervo('acusado',this)">👤 Acusado</button>
+      <button class="fb2" onclick="filtAcervo('defesa',this)">🛡️ Defesa</button>
+      <button class="fb2" onclick="filtAcervo('judicial',this)">⚖ Judicial</button>
+      <button class="fb2" onclick="filtAcervo('outros',this)">📎 Outros</button>
+      <input type="text" class="sbusca" id="sbusca" placeholder="🔍 Buscar nome, ato ou observação…" oninput="renderAcervo()">
+    </div>
+    <div id="acContainer"></div>
+  </div>
+</div>
+
+<!-- ═══════════════════ MODAL ═══════════════════ -->
+<div class="mov" id="mOv" onclick="fModalFora(event)">
+  <div class="mod">
+    <div class="mhdr">
+      <div style="flex:1">
+        <div class="mtit" id="mTit"></div>
+        <div class="msub" id="mSub"></div>
+      </div>
+      <button class="mcl" onclick="fModal()">✕</button>
+    </div>
+    <div class="mbody">
+      <div class="mtabs">
+        <button class="mtab active" onclick="mTab('upload',this)">📎 Anexar</button>
+        <button class="mtab" onclick="mTab('lista',this)">📋 Anexados <span class="tbadge" id="mBadge" style="background:#3d7a56">0</span></button>
+      </div>
+      <!-- upload -->
+      <div id="mt-upload" class="mtc active">
+        <div class="dz" id="dz">
+          <input type="file" id="fi" multiple accept=".pdf,.doc,.docx,.jpg,.jpeg,.png,.txt,.odt,.xls,.xlsx">
+          <div class="dz-ico">📂</div>
+          <div class="dz-t">Arraste arquivos aqui</div>
+          <div class="dz-s">PDF, Word, imagens, planilhas — múltiplos arquivos</div>
+          <div class="dz-btn" onclick="document.getElementById('fi').click()">Selecionar Arquivos</div>
+        </div>
+        <div id="pvArea"></div>
+        <label class="fl">Categoria</label>
+        <select class="fsel" id="selCat">
+          <option value="portaria">🏛️ Portaria / Ato Normativo</option>
+          <option value="comissao" selected>⚖️ Documento da Comissão (ata, despacho, notificação, certidão)</option>
+          <option value="acusado">👤 Documento do Acusado (interrogatório, declaração, requerimento)</option>
+          <option value="defesa">🛡️ Documento da Defesa (defesa prévia, RED, procuração)</option>
+          <option value="judicial">⚖ Documento Judicial (decisão, certidão AJME, ofício judicial)</option>
+          <option value="outros">📎 Outros / Diligências (laudos, perícias, certidões diversas)</option>
+        </select>
+        <label class="fl">Observação / Descrição sumária (opcional)</label>
+        <textarea class="fta" id="obsIn" placeholder="Ex.: Ata da 1ª reunião — interrogatório realizado em 12/03/2026…"></textarea>
+        <button class="bconf" onclick="confirmar()">✓ Confirmar Anexação</button>
+      </div>
+      <!-- lista -->
+      <div id="mt-lista" class="mtc">
+        <div id="mLista"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ════════════════════════════════════════════════════
+// DEFINIÇÃO DOS ATOS
+// ════════════════════════════════════════════════════
+const ATOS = [
+  {fase:"FASE 0 — PRÉ-INSTALAÇÃO"},
+  {id:0,  ato:"Portaria de Instauração do PAD",                   ref:"Portaria nº 102309/26 — CPM",             base:"recebimento", offset:0,  tipo:"corridos", desc:"Documento base do processo — emitida em 02/03/2026"},
+  {id:1,  ato:"Comunicar recebimento à CPM1 via SICOR",           ref:"Item 2.2 — Portaria 102309/26",           base:"recebimento", offset:0,  tipo:"corridos", desc:"Imediato ao recebimento — marco do prazo regulamentar"},
+  {id:2,  ato:"Despacho ao Escrivão — marcação da Instalação",    ref:"MAPPA p. 208 · Art. 70 CEDM",             base:"recebimento", offset:0,  tipo:"corridos", desc:"1º ato interno da CPAD — de próprio punho"},
+  {id:3,  ato:"Notificação do acusado e defensor para Instalação", ref:"Art. 340 §1º MAPPA · Art. 70 IV CEDM",   base:"recebimento", offset:0,  tipo:"corridos", desc:"Com antecedência mínima de 48h"},
+  {id:4,  ato:"Reunião de Instalação (prazo máximo)",              ref:"Art. 338 §1º MAPPA",                     base:"recebimento", offset:10, tipo:"corridos", desc:"Até 10 dias corridos do recebimento da portaria publicada"},
+  {fase:"FASE 1 — INSTRUÇÃO"},
+  {id:5,  ato:"Início da contagem do prazo processual (40 dias)", ref:"Art. 338 §1º MAPPA",                      base:"instalacao",  offset:1,  tipo:"corridos", desc:"1º dia útil seguinte à instalação — inicia os 40 dias corridos"},
+  {id:6,  ato:"Interrogatório do acusado — 1ª Reunião",           ref:"Art. 70 IV c CEDM",                       base:"instalacao",  offset:2,  tipo:"uteis",   desc:"Mín. 2 dias úteis após instalação · vedado na reunião de instalação"},
+  {id:7,  ato:"Abertura de vista — Defesa Prévia (TAV 1)",        ref:"Art. 70 VIII c CEDM · MAPPA p. 218",      base:"instalacao",  offset:2,  tipo:"uteis",   desc:"Logo após o interrogatório · defensor tem 5 dias úteis"},
+  {id:8,  ato:"Vencimento do prazo da Defesa Prévia",             ref:"Art. 70 VIII c CEDM",                     base:"instalacao",  offset:9,  tipo:"uteis",   desc:"5 dias úteis a partir do TAV 1 · apresentação facultativa"},
+  {id:9,  ato:"Oitiva de testemunhas da Comissão",                ref:"Art. 70 VIII d CEDM · Art. 339 MAPPA",    base:"instalacao",  offset:12, tipo:"corridos", desc:"Até 5 testemunhas · notificação com mín. 48h de antecedência"},
+  {id:10, ato:"Oitiva de testemunhas da Defesa (máx. 5)",         ref:"Art. 70 VIII d CEDM",                     base:"instalacao",  offset:18, tipo:"corridos", desc:"Indicadas pelo acusado/defensor · notificação mín. 48h"},
+  {id:11, ato:"Diligências / perícias / documentos complementares",ref:"Art. 339 §2º MAPPA",                    base:"instalacao",  offset:25, tipo:"corridos", desc:"Laudos, certidões, acareações e demais diligências"},
+  {fase:"FASE 2 — DEFESA FINAL"},
+  {id:12, ato:"Abertura de vista — RED Final (TAV 2)",            ref:"Art. 70 VIII e CEDM · Art. 341 MAPPA",    base:"instalacao",  offset:27, tipo:"corridos", desc:"Após encerrar instrução · persistindo acusação · prazo: 5 dias úteis"},
+  {id:13, ato:"Vencimento do prazo das Razões Escritas de Defesa",ref:"Art. 70 VIII e CEDM",                     base:"instalacao",  offset:34, tipo:"uteis",   desc:"5 dias úteis do TAV 2 · não apresentadas → nomear defensor ad hoc"},
+  {fase:"FASE 3 — RELATÓRIO E ENCERRAMENTO"},
+  {id:14, ato:"Elaboração e conclusão do Relatório da CPAD",      ref:"Art. 70 IX CEDM · Art. 337 MAPPA",        base:"instalacao",  offset:38, tipo:"corridos", desc:"Numeração e rubrica de todas as folhas · parecer fundamentado"},
+  {id:15, ato:"PRAZO FINAL DO PAD — 40 dias corridos",            ref:"Art. 337 MAPPA",                         base:"instalacao",  offset:40, tipo:"corridos", desc:"Vencimento do prazo base · prorrogável por até 20 dias corridos"},
+  {id:16, ato:"Encaminhamento ao CEDMU para parecer",             ref:"Art. 520 §5º MAPPA · Art. 79 CEDM",       base:"instalacao",  offset:40, tipo:"corridos", desc:"CEDMU: 10 dias úteis para emitir parecer"},
+  {fase:"FASE 4 — SOLUÇÃO"},
+  {id:17, ato:"Parecer do CEDMU (vencimento do prazo)",           ref:"Art. 520 §5º MAPPA",                      base:"instalacao",  offset:54, tipo:"uteis",   desc:"10 dias úteis a contar do recebimento pelo CEDMU"},
+  {id:18, ato:"Solução do PAD pela Autoridade Convocante",        ref:"Art. 64 CEDM · Art. 337 MAPPA",           base:"instalacao",  offset:60, tipo:"corridos", desc:"Portaria de solução: enquadramento / demissão / arquivamento"},
+];
+
+// ════════════════════════════════════════════════════
+// PERSISTÊNCIA — localStorage
+// ════════════════════════════════════════════════════
+const STORE_KEY = 'cpad_pad_102309_26_v1';
+
+function salvar() {
+  try {
+    const payload = {
+      gReceb:  S.gReceb  ? tiv(S.gReceb)  : null,
+      gInstal: S.gInstal ? tiv(S.gInstal) : null,
+      inic: Object.fromEntries(Object.entries(S.inic).map(([k,v])=>[k, v ? tiv(v) : null])),
+      cum:  Object.fromEntries(Object.entries(S.cum).map(([k,v])=>[k, v ? tiv(v)  : null])),
+      docs: S.docs
+    };
+    localStorage.setItem(STORE_KEY, JSON.stringify(payload));
+  } catch(e) { console.warn('Erro ao salvar:', e); }
+}
+
+function carregar() {
+  try {
+    const raw = localStorage.getItem(STORE_KEY);
+    if (!raw) return false;
+    const p = JSON.parse(raw);
+    S.gReceb  = p.gReceb  ? pd(p.gReceb)  : null;
+    S.gInstal = p.gInstal ? pd(p.gInstal) : null;
+    S.inic = {};
+    Object.entries(p.inic||{}).forEach(([k,v])=>{ if(v) S.inic[parseInt(k)] = pd(v); });
+    S.cum = {};
+    Object.entries(p.cum||{}).forEach(([k,v])=>{ if(v) S.cum[parseInt(k)]  = pd(v); });
+    S.docs = p.docs || {};
+    return true;
+  } catch(e) { console.warn('Erro ao carregar:', e); return false; }
+}
+
+// ════════════════════════════════════════════════════
+// ESTADO GLOBAL
+// ════════════════════════════════════════════════════
+const S = {
+  gReceb:    null,
+  gInstal:   null,
+  inic:      {},
+  cum:       {},
+  docs:      {}
+};
+
+let mAtoId = null;
+let emEsp  = [];
+let filtAc = 'todos';
+
+// ════════════════════════════════════════════════════
+// UTILITÁRIOS
+// ════════════════════════════════════════════════════
+const pd  = s => { if(!s) return null; const [y,m,d]=s.split('-').map(Number); return new Date(y,m-1,d); };
+const fd  = d => { if(!d) return '—'; return `${String(d.getDate()).padStart(2,'0')}/${String(d.getMonth()+1).padStart(2,'0')}/${d.getFullYear()}`; };
+const tiv = d => { if(!d) return ''; return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`; };
+const adc = (b,n) => { const d=new Date(b); d.setDate(d.getDate()+n); return d; };
+const adu = (b,n) => { let d=new Date(b),c=0; while(c<n){d.setDate(d.getDate()+1); if(d.getDay()&&d.getDay()<6) c++;} return d; };
+const dif = (a,b) => Math.round((b-a)/86400000);
+const hj  = () => { const n=new Date(); return new Date(n.getFullYear(),n.getMonth(),n.getDate()); };
+const uid = () => Date.now().toString(36)+Math.random().toString(36).slice(2,7);
+const fb  = b => b<1024?b+'B':b<1048576?(b/1024).toFixed(1)+'KB':(b/1048576).toFixed(1)+'MB';
+const ico = t => { if(!t)return'📄'; if(t.includes('pdf'))return'📕'; if(t.includes('word')||t.includes('document'))return'📘'; if(t.includes('image'))return'🖼️'; if(t.includes('sheet')||t.includes('excel'))return'📗'; return'📎'; };
+const totalDocs  = () => Object.values(S.docs).reduce((s,a)=>s+(a?a.length:0),0);
+const docsCat    = c  => Object.values(S.docs).reduce((s,a)=>s+(a?a.filter(d=>d.cat===c).length:0),0);
+
+/**
+ * Calcula o prazo-limite de um ato.
+ * Prioridade: data de início individual (S.inic[ato.id]) > data global correspondente.
+ */
+function calcLimite(ato) {
+  // Base individual tem prioridade
+  const baseInd = S.inic[ato.id];
+  const baseGlob = ato.base === 'recebimento' ? S.gReceb : S.gInstal;
+  const base = baseInd || baseGlob;
+  if (!base) return null;
+  return ato.tipo === 'uteis' ? adu(base, ato.offset) : adc(base, ato.offset);
+}
+
+/**
+ * Retorna a fonte da base usada ('individual', 'global', null)
+ */
+function fontBase(ato) {
+  if (S.inic[ato.id]) return 'individual';
+  const bg = ato.base === 'recebimento' ? S.gReceb : S.gInstal;
+  if (bg) return 'global';
+  return null;
+}
+
+function getStatus(ato, dl) {
+  if (S.cum[ato.id]) return 'cumprido';
+  if (!dl) return 'pendente';
+  const d = dif(hj(), dl);
+  if (d < 0) return 'atrasado';
+  if (d <= 3) return 'alerta';
+  return 'pendente';
+}
+
+// ════════════════════════════════════════════════════
+// TABS
+// ════════════════════════════════════════════════════
+function tabAba(aba, btn) {
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.tc').forEach(t=>t.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('tab-'+aba).classList.add('active');
+  if (aba==='acervo') renderAcervo();
+}
+
+// ════════════════════════════════════════════════════
+// RENDERIZAÇÃO DA TABELA
+// ════════════════════════════════════════════════════
+function renderTabela() {
+  const tb = document.getElementById('tbody');
+  tb.innerHTML = '';
+  let num=0, tot=0, cum=0;
+
+  ATOS.forEach(item => {
+    if (item.fase) {
+      const r = document.createElement('tr'); r.className='fh';
+      r.innerHTML=`<td colspan="8">▸ ${item.fase}</td>`;
+      tb.appendChild(r); return;
+    }
+    num++; tot++;
+
+    const dl     = calcLimite(item);
+    const status = getStatus(item, dl);
+    if (status === 'cumprido') cum++;
+
+    // classe do prazo-limite
+    const dcls = !dl ? 'n' : {cumprido:'c',atrasado:'a',alerta:'l',pendente:'p'}[status];
+
+    // prazo textual
+    const pTxt = item.offset === 0
+      ? 'Imediato'
+      : `Até ${item.offset} ${item.tipo==='uteis'?'dias úteis':'dias corridos'}`;
+
+    // valores dos inputs
+    const inicVal = S.inic[item.id] ? tiv(S.inic[item.id]) : '';
+    const cumVal  = S.cum[item.id]  ? tiv(S.cum[item.id])  : '';
+
+    // fonte da base
+    const fonte = fontBase(item);
+    const fonteLabel = fonte === 'individual' ? '✏️ início editado'
+                     : fonte === 'global'     ? (item.base==='recebimento' ? '📥 recebimento global' : '🏛️ instalação global')
+                     : '';
+
+    // docs
+    const nd = (S.docs[item.id]||[]).length;
+
+    // pill
+    const pillMap = {cumprido:['pc','Cumprido'],atrasado:['pa','Atrasado'],alerta:['pal','Atenção'],pendente:['pp','Pendente']};
+    const [pc, pl2] = pillMap[status];
+
+    const r = document.createElement('tr');
+    r.innerHTML = `
+      <td class="cn">${num}</td>
+      <td class="ca">${item.ato}<small>${item.desc} &nbsp;·&nbsp; <em>${item.ref}</em></small></td>
+      <td class="cp"><strong>${pTxt}</strong>a partir do ${item.base==='recebimento'?'recebimento':'dia de instalação'}</td>
+
+      <td class="ci">
+        <div class="inicio-wrap">
+          <span class="inicio-label">Início do prazo</span>
+          <input type="date"
+            class="data-inicio ${inicVal?'filled':''}"
+            data-id="${item.id}"
+            value="${inicVal}"
+            title="Edite aqui a data de início deste prazo específico. Sobrepõe a data global.">
+          <span class="inicio-source">${fonteLabel}</span>
+        </div>
+      </td>
+
+      <td class="cd">
+        <span class="dc-tag ${dcls}">${dl ? fd(dl) : '—'}</span>
+      </td>
+
+      <td class="ck">
+        <div class="cum-wrap">
+          <span class="cum-label">Data cumprimento</span>
+          <input type="date"
+            class="data-cum ${cumVal?'filled':''}"
+            data-id="${item.id}"
+            value="${cumVal}"
+            title="Registre a data em que este ato foi efetivamente cumprido">
+        </div>
+      </td>
+
+      <td class="cdo">
+        <button class="btn-anx ${nd?'has':''}" onclick="abrirModal(${item.id})">
+          📎 ${nd ? `<span class="dc2">${nd}</span>` : 'Anexar'}
+        </button>
+      </td>
+
+      <td class="cs"><span class="pill ${pc}">${pl2}</span></td>
+    `;
+    tb.appendChild(r);
+  });
+
+  // ── listeners: início individual ──
+  document.querySelectorAll('input.data-inicio').forEach(inp => {
+    inp.addEventListener('change', function() {
+      const id = parseInt(this.dataset.id);
+      if (this.value) { S.inic[id] = pd(this.value); this.classList.add('filled'); }
+      else            { delete S.inic[id];            this.classList.remove('filled'); }
+      salvar(); renderTabela();
+    });
+  });
+
+  // ── listeners: cumprimento ──
+  document.querySelectorAll('input.data-cum').forEach(inp => {
+    inp.addEventListener('change', function() {
+      const id = parseInt(this.dataset.id);
+      if (this.value) { S.cum[id] = pd(this.value); this.classList.add('filled'); }
+      else            { delete S.cum[id];            this.classList.remove('filled'); }
+      salvar(); renderTabela();
+    });
+  });
+
+  atualizarContadores(tot);
+  atualizarProgresso(cum, tot);
+  atualizarBadge();
+}
+
+// ════════════════════════════════════════════════════
+// CONTADORES + PROGRESSO
+// ════════════════════════════════════════════════════
+function atualizarContadores(tot) {
+  const base = S.gInstal;
+  if (base) {
+    const dec  = dif(base, hj());
+    const rest = 40 - dec;
+    const pf   = adc(base, 40);
+    const ed = document.getElementById('cDec');
+    ed.textContent = Math.max(0,dec);
+    ed.className = 'v' + (dec>37?' urg':dec>30?' al':'');
+    const er = document.getElementById('cRest');
+    er.textContent = Math.max(0,rest);
+    er.className = 'v' + (rest<5?' urg':rest<10?' al':'');
+    document.getElementById('cFinal').textContent = fd(pf);
+  } else {
+    ['cDec','cRest','cFinal'].forEach(i=>document.getElementById(i).textContent='—');
+  }
+  const c2 = Object.keys(S.cum).length;
+  document.getElementById('cCum').textContent  = c2;
+  document.getElementById('cPend').textContent = tot - c2;
+}
+
+function atualizarProgresso(cum, tot) {
+  const pct = tot>0 ? Math.round((cum/tot)*100) : 0;
+  document.getElementById('pBar').style.width = pct+'%';
+  document.getElementById('pLabel').textContent = `Progresso: ${cum}/${tot} atos (${pct}%)`;
+  if (S.gInstal) {
+    const dec = dif(S.gInstal, hj());
+    document.getElementById('pTempo').textContent = `Tempo: ${Math.min(100,Math.round((dec/40)*100))}% do prazo base`;
+  }
+}
+
+function atualizarBadge() {
+  document.getElementById('badgeTotal').textContent = totalDocs();
+}
+
+// ════════════════════════════════════════════════════
+// LISTENERS GLOBAIS
+// ════════════════════════════════════════════════════
+document.getElementById('gReceb').addEventListener('change', function() {
+  S.gReceb = pd(this.value) || null; salvar(); renderTabela();
+});
+document.getElementById('gInstal').addEventListener('change', function() {
+  S.gInstal = pd(this.value) || null; salvar(); renderTabela();
+});
+
+// ════════════════════════════════════════════════════
+// MODAL DE DOCUMENTOS
+// ════════════════════════════════════════════════════
+function abrirModal(atoId) {
+  mAtoId = atoId; emEsp = [];
+  document.getElementById('pvArea').innerHTML = '';
+  document.getElementById('obsIn').value = '';
+  document.getElementById('selCat').value = atoId===0 ? 'portaria' : 'comissao';
+  const ato = ATOS.find(a=>a.id===atoId);
+  document.getElementById('mTit').textContent = 'Documentos — Ato ' + atoId + (atoId===0?' (Portaria)':'');
+  document.getElementById('mSub').textContent = ato ? ato.ato : '';
+  mTab('upload', null);
+  renderLista();
+  document.getElementById('mOv').classList.add('open');
+}
+
+function fModal() { document.getElementById('mOv').classList.remove('open'); mAtoId=null; emEsp=[]; }
+function fModalFora(e) { if(e.target===document.getElementById('mOv')) fModal(); }
+
+function mTab(tab, _btn) {
+  document.querySelectorAll('.mtab').forEach((b,i) => b.classList.toggle('active', i===(tab==='upload'?0:1)));
+  document.getElementById('mt-upload').classList.toggle('active', tab==='upload');
+  document.getElementById('mt-lista').classList.toggle('active', tab==='lista');
+  if (tab==='lista') renderLista();
+}
+
+function renderLista() {
+  const docs = S.docs[mAtoId] || [];
+  document.getElementById('mBadge').textContent = docs.length;
+  const c = document.getElementById('mLista');
+  if (!docs.length) {
+    c.innerHTML = `<div class="emp"><div class="emp-i">📭</div>Nenhum documento anexado a este ato.</div>`;
+    return;
+  }
+  const list = document.createElement('div'); list.className = 'dl';
+  docs.forEach(doc => {
+    const item = document.createElement('div'); item.className = 'di';
+    item.innerHTML = `
+      <div class="di-ico">${ico(doc.tipo)}</div>
+      <div class="di-info">
+        <div class="di-nm" title="${doc.nome}">${doc.nome}</div>
+        <div class="di-mt"><span>📅 ${doc.dataAnexo}</span><span>💾 ${fb(doc.tamanho)}</span></div>
+        <textarea class="di-obs" rows="2" placeholder="Observação…">${doc.obs||''}</textarea>
+      </div>
+      <select class="sci" onchange="mudaCat('${doc.uid}',this.value)">
+        <option value="portaria" ${doc.cat==='portaria'?'selected':''}>🏛️ Portaria</option>
+        <option value="comissao" ${doc.cat==='comissao'?'selected':''}>⚖️ Comissão</option>
+        <option value="acusado"  ${doc.cat==='acusado' ?'selected':''}>👤 Acusado</option>
+        <option value="defesa"   ${doc.cat==='defesa'  ?'selected':''}>🛡️ Defesa</option>
+        <option value="judicial" ${doc.cat==='judicial'?'selected':''}>⚖ Judicial</option>
+        <option value="outros"   ${doc.cat==='outros'  ?'selected':''}>📎 Outros</option>
+      </select>
+      <button class="dbt del" title="Remover" onclick="remDoc('${doc.uid}')">🗑️</button>
+    `;
+    item.querySelector('.di-obs').addEventListener('change', function() { salvaObs(doc.uid, this.value); });
+    list.appendChild(item);
+  });
+  c.innerHTML = ''; c.appendChild(list);
+}
+
+function remDoc(docUid) {
+  if (!confirm('Remover este documento?')) return;
+  Object.keys(S.docs).forEach(k => { S.docs[k] = (S.docs[k]||[]).filter(d=>d.uid!==docUid); });
+  salvar(); renderLista(); renderTabela();
+  if (document.getElementById('tab-acervo').classList.contains('active')) renderAcervo();
+}
+function salvaObs(u, obs) { Object.values(S.docs).forEach(a => { const d=a.find(x=>x.uid===u); if(d) d.obs=obs; }); salvar(); }
+function mudaCat(u, cat)  { Object.values(S.docs).forEach(a => { const d=a.find(x=>x.uid===u); if(d) d.cat=cat; }); salvar(); atualizarBadge(); if(document.getElementById('tab-acervo').classList.contains('active')) renderAcervo(); }
+
+// DROP ZONE
+const dz = document.getElementById('dz');
+const fi = document.getElementById('fi');
+dz.addEventListener('dragover', e => { e.preventDefault(); dz.classList.add('over'); });
+dz.addEventListener('dragleave', () => dz.classList.remove('over'));
+dz.addEventListener('drop', e => { e.preventDefault(); dz.classList.remove('over'); procFiles(e.dataTransfer.files); });
+dz.addEventListener('click', () => fi.click());
+fi.addEventListener('change', () => { procFiles(fi.files); fi.value=''; });
+
+function procFiles(files) {
+  Array.from(files).forEach(f => {
+    if (!emEsp.find(x=>x.nome===f.name&&x.tam===f.size))
+      emEsp.push({uid:uid(), nome:f.name, tam:f.size, tipo:f.type});
+  });
+  renderPreview();
+}
+function renderPreview() {
+  const c = document.getElementById('pvArea'); c.innerHTML = '';
+  emEsp.forEach(f => {
+    const d = document.createElement('div'); d.className = 'pv-item';
+    d.innerHTML = `
+      <span style="font-size:18px">${ico(f.tipo)}</span>
+      <div class="pv-info"><div class="pv-nm">${f.nome}</div><div class="pv-sz">${fb(f.tam)}</div></div>
+      <button class="btn-rmpv" onclick="rmEsp('${f.uid}')">✕</button>`;
+    c.appendChild(d);
+  });
+}
+function rmEsp(u) { emEsp = emEsp.filter(f=>f.uid!==u); renderPreview(); }
+
+function confirmar() {
+  if (mAtoId===null) { alert('Erro interno.'); return; }
+  if (!emEsp.length) { alert('Selecione ao menos um arquivo.'); return; }
+  const cat = document.getElementById('selCat').value;
+  const obs = document.getElementById('obsIn').value.trim();
+  const n   = new Date();
+  const dataAnexo = fd(n)+' '+String(n.getHours()).padStart(2,'0')+':'+String(n.getMinutes()).padStart(2,'0');
+  if (!S.docs[mAtoId]) S.docs[mAtoId] = [];
+  emEsp.forEach(f => S.docs[mAtoId].push({uid:f.uid, nome:f.nome, tamanho:f.tam, tipo:f.tipo, cat, obs, dataAnexo}));
+  emEsp = [];
+  document.getElementById('pvArea').innerHTML = '';
+  document.getElementById('obsIn').value = '';
+  mTab('lista', null);
+  salvar(); renderTabela(); atualizarBadge();
+  if (document.getElementById('tab-acervo').classList.contains('active')) renderAcervo();
+}
+
+// ════════════════════════════════════════════════════
+// ACERVO
+// ════════════════════════════════════════════════════
+function filtAcervo(cat, btn) {
+  filtAc = cat;
+  document.querySelectorAll('.fb2').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  renderAcervo();
+}
+
+function renderAcervo() {
+  const cats = ['portaria','comissao','acusado','defesa','judicial','outros'];
+  document.getElementById('stTotal').textContent = totalDocs();
+  cats.forEach(c => { const e=document.getElementById('st'+c.charAt(0).toUpperCase()+c.slice(1)); if(e) e.textContent=docsCat(c); });
+
+  const busca = (document.getElementById('sbusca').value||'').toLowerCase();
+  let todos = [];
+  ATOS.forEach(a => {
+    if (a.fase) return;
+    (S.docs[a.id]||[]).forEach(d => todos.push({...d, atoId:a.id, atoNome:a.ato}));
+  });
+  if (filtAc !== 'todos') todos = todos.filter(d => d.cat===filtAc);
+  if (busca) todos = todos.filter(d =>
+    d.nome.toLowerCase().includes(busca) ||
+    (d.obs && d.obs.toLowerCase().includes(busca)) ||
+    d.atoNome.toLowerCase().includes(busca)
+  );
+
+  const c = document.getElementById('acContainer');
+  if (!todos.length) {
+    c.innerHTML = `<div class="emp" style="padding:50px"><div class="emp-i">🗂️</div>Nenhum documento encontrado.<br><small>Anexe documentos pelo Cronograma → botão 📎 em cada ato.</small></div>`;
+    return;
+  }
+
+  const grupos = {
+    portaria:{l:'Portarias e Atos Normativos', i:'🏛️'},
+    comissao:{l:'Documentos da Comissão',      i:'⚖️'},
+    acusado: {l:'Documentos do Acusado',       i:'👤'},
+    defesa:  {l:'Documentos da Defesa',        i:'🛡️'},
+    judicial:{l:'Documentos Judiciais',        i:'⚖'},
+    outros:  {l:'Outros / Diligências',        i:'📎'},
+  };
+  c.innerHTML = '';
+  Object.entries(grupos).forEach(([cat, meta]) => {
+    const docs = todos.filter(d => d.cat===cat);
+    if (!docs.length) return;
+    const s  = document.createElement('div'); s.className='asec';
+    const bId='ab-'+cat, tId='at-'+cat;
+    s.innerHTML=`
+      <div class="ashdr ${cat}" onclick="togSec('${bId}','${tId}')">
+        <div class="ast2">${meta.i} ${meta.l} <span class="acnt">${docs.length} doc${docs.length!==1?'s':''}</span></div>
+        <span class="atog open" id="${tId}">▶</span>
+      </div>
+      <div class="abody open" id="${bId}">
+        <table class="atable">
+          <thead><tr><th>T.</th><th>Nome</th><th>Ato</th><th>Observação</th><th>Anexado</th><th>Tam.</th><th></th></tr></thead>
+          <tbody>
+            ${docs.map(d=>`<tr>
+              <td style="text-align:center;font-size:17px">${ico(d.tipo)}</td>
+              <td style="font-weight:600;max-width:170px;word-break:break-word">${d.nome}</td>
+              <td style="color:var(--cinza);max-width:160px;font-size:10.5px">Ato ${d.atoId}: ${d.atoNome.length>36?d.atoNome.slice(0,36)+'…':d.atoNome}</td>
+              <td style="color:var(--cinza);font-style:italic;max-width:160px;font-size:10.5px">${d.obs||'—'}</td>
+              <td style="white-space:nowrap;font-size:10.5px">${d.dataAnexo}</td>
+              <td style="white-space:nowrap;font-size:10.5px">${fb(d.tamanho)}</td>
+              <td><button class="dbt del" title="Remover" onclick="remDocAc('${d.uid}')">🗑️</button></td>
+            </tr>`).join('')}
+          </tbody>
+        </table>
+        <button class="aab" onclick="abrirModalCat(${docs[0].atoId},'${cat}')">＋ Adicionar documento</button>
+      </div>
+    `;
+    c.appendChild(s);
+  });
+}
+
+function togSec(bId,tId){document.getElementById(bId).classList.toggle('open');document.getElementById(tId).classList.toggle('open');}
+function remDocAc(u){ if(!confirm('Remover?')) return; Object.keys(S.docs).forEach(k=>{S.docs[k]=(S.docs[k]||[]).filter(d=>d.uid!==u);}); salvar(); renderAcervo(); renderTabela(); }
+function abrirModalCat(atoId,cat){ abrirModal(atoId); setTimeout(()=>document.getElementById('selCat').value=cat,60); }
+
+// ════════════════════════════════════════════════════
+// LIMPAR TUDO
+// ════════════════════════════════════════════════════
+function limparTudo() {
+  if (!confirm('Limpar todas as datas e documentos?')) return;
+  document.getElementById('gReceb').value  = '';
+  document.getElementById('gInstal').value = '';
+  S.gReceb=null; S.gInstal=null; S.inic={}; S.cum={}; S.docs={};
+  inicPortaria();
+  salvar(); renderTabela(); atualizarBadge();
+}
+
+// ════════════════════════════════════════════════════
+// INICIALIZAÇÃO
+// ════════════════════════════════════════════════════
+function inicPortaria() {
+  S.docs[0] = [{
+    uid: uid(), nome:'Portaria_PAD_102309_26_ass_dig.pdf',
+    tamanho:0, tipo:'application/pdf', cat:'portaria',
+    obs:'Portaria de Instauração do PAD — assinada digitalmente em 02/03/2026 · Corregedor PMMG',
+    dataAnexo:'02/03/2026 11:37'
+  }];
+}
+
+// ════════════════════════════════════════════════════
+// BOOT — restaura estado salvo ou inicializa padrão
+// ════════════════════════════════════════════════════
+(function boot() {
+  const restaurado = carregar();
+
+  // Se não havia dado salvo, insere a portaria de referência
+  if (!restaurado || !S.docs[0] || S.docs[0].length === 0) {
+    inicPortaria();
+    salvar();
+  }
+
+  // Repopula os inputs globais visíveis com os valores restaurados
+  if (S.gReceb)  document.getElementById('gReceb').value  = tiv(S.gReceb);
+  if (S.gInstal) document.getElementById('gInstal').value = tiv(S.gInstal);
+
+  // Exibe toast de confirmação se havia dados salvos
+  if (restaurado) {
+    const t = document.createElement('div');
+    t.textContent = '✓ Andamentos processuais restaurados automaticamente';
+    t.style.cssText = [
+      'position:fixed','bottom:28px','left:50%','transform:translateX(-50%)',
+      'background:#1a3a2a','color:#e8c96a','font-family:Oswald,sans-serif',
+      'font-size:13px','letter-spacing:1px','padding:10px 24px',
+      'border-radius:30px','box-shadow:0 4px 18px rgba(0,0,0,.35)',
+      'z-index:9999','border:1.5px solid #c9a84c','transition:opacity .5s'
+    ].join(';');
+    document.body.appendChild(t);
+    setTimeout(()=>{ t.style.opacity='0'; setTimeout(()=>t.remove(), 600); }, 3000);
+  }
+
+  renderTabela();
+})();
+</script>
+</body>
+</html>
